@@ -17,12 +17,12 @@ alloy-provider = "0.11.1"
 alloy-transport = "0.11.1"
 
 # reth
-reth-chainspec = { git = "https://github.com/paradigmxyz/reth", rev = "1e0b0d8" }
-reth-db-models = { git = "https://github.com/paradigmxyz/reth", rev = "1e0b0d8" }
-reth-errors = { git = "https://github.com/paradigmxyz/reth", rev = "1e0b0d8" }
-reth-primitives = { git = "https://github.com/paradigmxyz/reth", rev = "1e0b0d8" }
-reth-provider = { git = "https://github.com/paradigmxyz/reth", rev = "1e0b0d8" }
-reth-trie = { git = "https://github.com/paradigmxyz/reth", rev = "1e0b0d8" }
+reth-chainspec = { git = "https://github.com/paradigmxyz/reth", rev = "e4c8e47" }
+reth-db-models = { git = "https://github.com/paradigmxyz/reth", rev = "e4c8e47" }
+reth-errors = { git = "https://github.com/paradigmxyz/reth", rev = "e4c8e47" }
+reth-primitives = { git = "https://github.com/paradigmxyz/reth", rev = "e4c8e47" }
+reth-provider = { git = "https://github.com/paradigmxyz/reth", rev = "e4c8e47" }
+reth-trie = { git = "https://github.com/paradigmxyz/reth", rev = "e4c8e47" }
 
 
 [dev-dependencies]
