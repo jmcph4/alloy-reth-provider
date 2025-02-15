@@ -1,0 +1,29 @@
+[package]
+name = "alloy-reth-provider"
+version = "0.1.0"
+edition = "2021"
+license = "MIT OR Apache-2.0"
+
+[dependencies]
+parking_lot = "0.12.3"
+revm = { version = "19.5.0", features = ["alloydb"] }
+tokio = { version = "1.43.0", features = ["rt-multi-thread"] }
+
+# alloy
+alloy-eips = "0.11.1"
+alloy-network = "0.11.1"
+alloy-primitives = "0.8.21"
+alloy-provider = "0.11.1"
+alloy-transport = "0.11.1"
+
+# reth
+reth-chainspec = { git = "https://github.com/paradigmxyz/reth", rev = "1e0b0d8" }
+reth-db-models = { git = "https://github.com/paradigmxyz/reth", rev = "1e0b0d8" }
+reth-errors = { git = "https://github.com/paradigmxyz/reth", rev = "1e0b0d8" }
+reth-primitives = { git = "https://github.com/paradigmxyz/reth", rev = "1e0b0d8" }
+reth-provider = { git = "https://github.com/paradigmxyz/reth", rev = "1e0b0d8" }
+reth-trie = { git = "https://github.com/paradigmxyz/reth", rev = "1e0b0d8" }
+
+
+[dev-dependencies]
+ruint = "1.12.4"
