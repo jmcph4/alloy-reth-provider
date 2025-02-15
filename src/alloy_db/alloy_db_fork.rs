@@ -76,6 +76,7 @@ impl<N: Network, P: Provider<N>> DatabaseAsyncRef for AlloyDBFork<N, P> {
 mod tests {
     use super::*;
     use crate::alloy_db::async_db::WrapDatabaseAsync;
+    use alloy_primitives::address;
     use alloy_primitives::ruint::__private::ruint_macro::uint;
     use alloy_provider::ProviderBuilder;
     use revm::DatabaseRef;
@@ -83,12 +84,10 @@ mod tests {
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn can_get_basic() {
         let client = ProviderBuilder::new().on_http("https://eth.merkle.io".parse().unwrap());
-        let alloydb = AlloyDBFork::new(client, BlockId::from(16148323));
+        let alloydb = AlloyDBFork::new(client, BlockId::number(16148323));
         let wrapped_alloydb = WrapDatabaseAsync::new(alloydb).unwrap();
 
-        let address: Address = "0x220866b1a2219f40e72f5c628b65d54268ca3a9d".parse().unwrap();
-
-        let acc_info = wrapped_alloydb.basic_ref(address).unwrap().unwrap();
+        let acc_info = wrapped_alloydb.basic_ref(address!("220866b1a2219f40e72f5c628b65d54268ca3a9d")).unwrap().unwrap();
         assert!(acc_info.exists());
         assert_eq!(acc_info.nonce, 1);
         assert_eq!(acc_info.balance, uint!(250001010477701567100010_U256));

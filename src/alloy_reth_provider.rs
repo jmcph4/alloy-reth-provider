@@ -363,3 +363,24 @@ where
         todo!()
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use alloy_eips::BlockId;
+    use alloy_primitives::address;
+    use alloy_provider::ProviderBuilder;
+    use reth_provider::AccountReader;
+    use ruint::__private::ruint_macro::uint;
+
+    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
+    async fn test_alloy_reth_state_provider_factory() {
+        let provider = ProviderBuilder::new().on_http("https://eth.merkle.io".parse().unwrap());
+        let db_provider = AlloyRethProvider::new(provider.clone());
+        let state = db_provider.state_by_block_id(BlockId::number(16148323)).unwrap();
+        let acc_info = state.basic_account(&address!("220866b1a2219f40e72f5c628b65d54268ca3a9d")).unwrap().unwrap();
+
+        assert_eq!(acc_info.nonce, 1);
+        assert_eq!(acc_info.balance, uint!(250001010477701567100010_U256));
+    }
+}
