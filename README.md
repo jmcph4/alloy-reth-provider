@@ -13,7 +13,7 @@ See tests in `src/alloy_reth_provider.rs` for an example.
 // Init the provider
 let provider = ProviderBuilder::new().on_http("https://eth.merkle.io".parse().unwrap());
 // Init the db provider
-let db_provider = AlloyRethProvider::new(provider.clone());
+let db_provider = AlloyRethProvider::new(provider);
 // Use the StateProviderFactory
 let state = db_provider.state_by_block_id(BlockId::number(16148323)).unwrap();
 ```

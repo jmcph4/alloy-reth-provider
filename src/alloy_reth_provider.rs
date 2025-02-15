@@ -376,7 +376,7 @@ mod tests {
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn test_alloy_reth_state_provider_factory() {
         let provider = ProviderBuilder::new().on_http("https://eth.merkle.io".parse().unwrap());
-        let db_provider = AlloyRethProvider::new(provider.clone());
+        let db_provider = AlloyRethProvider::new(provider);
         let state = db_provider.state_by_block_id(BlockId::number(16148323)).unwrap();
         let acc_info = state.basic_account(&address!("220866b1a2219f40e72f5c628b65d54268ca3a9d")).unwrap().unwrap();
 
