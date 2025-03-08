@@ -29,6 +29,6 @@ reth-trie = { git = "https://github.com/paradigmxyz/reth", tag = "v1.2.0" }
 
 [dev-dependencies]
 ruint = "1.12.4"
-serde_json = "1.0.140"
+
+alloy-node-bindings = "0.11.1"
 tracing-subscriber = { version = "0.3.19", features = ["env-filter"] }
-wiremock = "0.6.3"
