@@ -26,9 +26,12 @@ reth-primitives = { git = "https://github.com/paradigmxyz/reth", tag = "v1.2.0" 
 reth-provider = { git = "https://github.com/paradigmxyz/reth", tag = "v1.2.0" }
 reth-trie = { git = "https://github.com/paradigmxyz/reth", tag = "v1.2.0" }
 
+# optimism
+reth-optimism-chainspec = { git = "https://github.com/paradigmxyz/reth", tag = "v1.2.0" }
+
 
 [dev-dependencies]
-ruint = "1.12.4"
-
 alloy-node-bindings = "0.11.1"
-tracing-subscriber = { version = "0.3.19", features = ["env-filter"] }
+eyre = "0.6.12"
+reth-revm = { git = "https://github.com/paradigmxyz/reth", tag = "v1.2.0" }
+ruint = "1.12.4"
