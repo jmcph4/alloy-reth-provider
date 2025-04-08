@@ -392,6 +392,7 @@ dependencies = [
  "revm-state",
  "ruint",
  "tokio",
+ "tracing",
 ]
 
 [[package]]
