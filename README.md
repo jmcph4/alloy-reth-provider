@@ -1,19 +1,15 @@
 # Alloy Reth State DB provider
-This repository illustrates how the `StateProviderFactory` from [reth](https://github.com/paradigmxyz/reth) can be implemented with [alloy-rs](https://github.com/alloy-rs/alloy) to fetch all state using RPC. This can be useful to not be dependent on a real database when testing reth ExEx.
-
-## Remarks
-There is no `debug_codeByHash` implemented currently (see [feat(rpc): debug_codeByHash #14479](https://github.com/paradigmxyz/reth/issues/14479)). But since revm will first call `basic_account`, we can cache it and return it when `bytecode_by_hash` is called.
-
-Currently, this repos purpose as copy/paste reference and not as library. Not all functions are implemented.
+This crate implements the `StateProviderFactory` and related traits from [reth](https://github.com/paradigmxyz/reth). But instead of using a DB it fetches all state using RPC. This can be useful to not be dependent on a real database when testing e.g. reth ExEx.
 
 ## Example
-See tests in `src/alloy_reth_provider.rs` for an example.
+See [evm_call.rs](./examples/evm_call.rs) for a complete example.
 
+Quckstart:
 ```rust
 // Init the provider
 let provider = ProviderBuilder::new().on_http("https://eth.merkle.io".parse().unwrap());
 // Init the db provider
-let db_provider = AlloyRethProvider::new(provider);
+let db_provider = AlloyRethProvider::new(provider, EthPrimitives::default());
 // Use the StateProviderFactory
 let state = db_provider.state_by_block_id(BlockId::number(16148323)).unwrap();
 ```

@@ -1,12 +1,13 @@
 [package]
 name = "alloy-reth-provider"
-version = "1.3.7"
+version = "1.3.8"
 edition = "2021"
 license = "MIT OR Apache-2.0"
 rust-version = "1.85"
 homepage = "https://github.com/cakevm/alloy-reth-provider"
 repository = "https://github.com/cakevm/alloy-reth-provider"
 exclude = [".github/"]
+description = "Implement reth StateProviderFactory traits for remote RPC usage"
 
 [dependencies]
 parking_lot = { version = "0.12.3", default-features = false }
@@ -31,25 +32,25 @@ alloy-transport = { version = "0.13.0", default-features = false }
 op-alloy-network = { version = "0.12.0", default-features = false, optional = true }
 
 # reth
-reth-chainspec = { git = "https://github.com/paradigmxyz/reth", tag = "v1.3.7", default-features = false }
-reth-db-models = { git = "https://github.com/paradigmxyz/reth", tag = "v1.3.7", default-features = false }
-reth-errors = { git = "https://github.com/paradigmxyz/reth", tag = "v1.3.7", default-features = false }
-reth-primitives = { git = "https://github.com/paradigmxyz/reth", tag = "v1.3.7", default-features = false, features = [
+reth-chainspec = { git = "https://github.com/paradigmxyz/reth", tag = "v1.3.8", default-features = false }
+reth-db-models = { git = "https://github.com/paradigmxyz/reth", tag = "v1.3.8", default-features = false }
+reth-errors = { git = "https://github.com/paradigmxyz/reth", tag = "v1.3.8", default-features = false }
+reth-primitives = { git = "https://github.com/paradigmxyz/reth", tag = "v1.3.8", default-features = false, features = [
   "serde-bincode-compat",
 ] }
-reth-primitives-traits = { git = "https://github.com/paradigmxyz/reth", tag = "v1.3.7", default-features = false }
-reth-provider = { git = "https://github.com/paradigmxyz/reth", tag = "v1.3.7", default-features = false }
-reth-trie = { git = "https://github.com/paradigmxyz/reth", tag = "v1.3.7", default-features = false }
+reth-primitives-traits = { git = "https://github.com/paradigmxyz/reth", tag = "v1.3.8", default-features = false }
+reth-provider = { git = "https://github.com/paradigmxyz/reth", tag = "v1.3.8", default-features = false }
+reth-trie = { git = "https://github.com/paradigmxyz/reth", tag = "v1.3.8", default-features = false }
 
 # ethereum
-reth-ethereum-primitives = { git = "https://github.com/paradigmxyz/reth", tag = "v1.3.7", default-features = false, features = [
+reth-ethereum-primitives = { git = "https://github.com/paradigmxyz/reth", tag = "v1.3.8", default-features = false, features = [
   "alloy-compat",
   "reth-codec",
 ] }
 
 # optimism
-reth-optimism-chainspec = { git = "https://github.com/paradigmxyz/reth", tag = "v1.3.7", default-features = false, optional = true }
-reth-optimism-primitives = { git = "https://github.com/paradigmxyz/reth", tag = "v1.3.7", default-features = false, features = [
+reth-optimism-chainspec = { git = "https://github.com/paradigmxyz/reth", tag = "v1.3.8", default-features = false, optional = true }
+reth-optimism-primitives = { git = "https://github.com/paradigmxyz/reth", tag = "v1.3.8", default-features = false, features = [
   "alloy-compat",
   "reth-codec",
   "serde",
@@ -63,5 +64,5 @@ optimism = ["op-alloy-network", "reth-optimism-chainspec", "reth-optimism-primit
 alloy-node-bindings = "0.13.0"
 alloy-provider = { version = "0.13.0", default-features = false, features = ["reqwest", "reqwest-default-tls"] }
 eyre = "0.6.12"
-reth-revm = { git = "https://github.com/paradigmxyz/reth", tag = "v1.3.7" }
+reth-revm = { git = "https://github.com/paradigmxyz/reth", tag = "v1.3.8" }
 ruint = "1.13.1"
