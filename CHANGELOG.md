@@ -4,6 +4,9 @@
 
 ## [Unreleased]
 
+# [1.3.9] - 2025-04-14
+- Update reth to 1.3.9
+
 ## [1.3.8-v2] - 2025-03-10
 - Reorganize files to match the structure of reth.
 - Add implementation for `CanonStateSubscriptions`.
