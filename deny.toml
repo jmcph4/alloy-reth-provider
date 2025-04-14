@@ -11,6 +11,8 @@ allow = [
   "Zlib",
   # permissive license with unclear patent grant
   "CC0-1.0",
+  # weak/limited copyleft licenses
+  "MPL-2.0",
 ]
 
 # Clearify licence: https://github.com/briansmith/ring/issues/902
