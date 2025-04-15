@@ -69,3 +69,4 @@ reth-revm = { git = "https://github.com/paradigmxyz/reth", tag = "v1.3.9" }
 reth-tasks = { git = "https://github.com/paradigmxyz/reth", tag = "v1.3.9" }
 reth-transaction-pool = { git = "https://github.com/paradigmxyz/reth", tag = "v1.3.9" }
 ruint = "1.13.1"
+tracing-subscriber = { version = "0.3.19", features = ["env-filter"] }

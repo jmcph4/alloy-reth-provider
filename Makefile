@@ -52,5 +52,5 @@ pre-release:
 	make clippy
 	make test
 	make test-op
-	make taplo-check
+	make taplo
 	make deny-check

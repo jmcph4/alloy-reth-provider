@@ -2,7 +2,7 @@ use crate::primitives::AlloyRethNodePrimitives;
 use crate::AlloyNetwork;
 use alloy_provider::Provider;
 use reth_ethereum_primitives::EthPrimitives;
-use reth_provider::{CanonStateNotification, CanonStateNotificationSender};
+use reth_provider::CanonStateNotificationSender;
 use tokio::sync::broadcast;
 
 #[derive(Clone, Debug)]
@@ -20,11 +20,6 @@ where
     pub fn new(provider: P, _np: NP) -> Self {
         let (canon_state_notification_sender, _) = broadcast::channel(256);
         Self { provider, canon_state_notification_sender, _np }
-    }
-
-    /// Attempts to send a new [`CanonStateNotification`] to all active Receiver handles.
-    pub fn notify_canon_state(&self, event: CanonStateNotification<EthPrimitives>) {
-        self.canon_state_notification_sender.send(event).ok();
     }
 }
 
