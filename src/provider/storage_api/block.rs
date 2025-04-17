@@ -51,7 +51,7 @@ where
 
                                 #[cfg(feature = "optimism")]
                                 {
-                                    tx.inner.into()
+                                    tx.inner.into_inner()
                                 }
                             })
                             .collect::<Vec<NP::SignedTx>>();
@@ -82,7 +82,7 @@ where
 
                                 #[cfg(feature = "optimism")]
                                 {
-                                    tx.inner.into()
+                                    tx.inner.into_inner()
                                 }
                             })
                             .collect::<Vec<NP::SignedTx>>();

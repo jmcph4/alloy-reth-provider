@@ -4,6 +4,9 @@
 
 ## [Unreleased]
 
+# [1.3.11] - 2025-04-17
+- Update reth to 1.3.11
+
 # [1.3.10] - 2025-04-16
 - Update reth to 1.3.10
 - Add Mempool example
