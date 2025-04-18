@@ -4,6 +4,9 @@
 
 ## [Unreleased]
 
+# [1.3.12] - 2025-04-18
+- Update reth to 1.3.12
+
 # [1.3.11] - 2025-04-17
 - Update reth to 1.3.11
 
