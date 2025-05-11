@@ -3,6 +3,9 @@
 # alloy-reth-provider changelog
 
 ## [Unreleased]
+- Add implementation for `StateReader`
+- Replace dummy `ExecutionOutcome` with `StateReader` in mempool example
+- Reuse tokio runtime for `StateProvider` if already running
 
 # [1.3.12] - 2025-04-18
 - Update reth to 1.3.12

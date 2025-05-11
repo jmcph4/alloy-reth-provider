@@ -7,12 +7,13 @@ use alloy_provider::Provider;
 use reth_errors::{ProviderError, ProviderResult};
 use reth_provider::errors::any::AnyError;
 use reth_provider::BlockHashReader;
+use std::fmt::Debug;
 use std::future::IntoFuture;
 use tokio::runtime::Handle;
 
 impl<P, NP> BlockHashReader for AlloyRethProvider<P, NP>
 where
-    P: Provider<AlloyNetwork> + Send + Sync + Clone + 'static,
+    P: Provider<AlloyNetwork> + Send + Sync + Debug + Clone + 'static,
     NP: AlloyRethNodePrimitives,
 {
     fn block_hash(&self, number: BlockNumber) -> ProviderResult<Option<B256>> {
@@ -54,7 +55,7 @@ mod tests {
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn test_block_hash() {
         let node_url = env::var("MAINNET_HTTP").unwrap_or("https://eth.merkle.io".to_string());
-        let provider = ProviderBuilder::new().on_http(node_url.parse().unwrap());
+        let provider = ProviderBuilder::new().connect_http(node_url.parse().unwrap());
 
         let db_provider = AlloyRethProvider::new(provider, EthPrimitives::default());
         let block_hash = db_provider.block_hash(16148323).unwrap().unwrap();
@@ -65,7 +66,7 @@ mod tests {
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn test_block_hash_not_found() {
         let node_url = env::var("MAINNET_HTTP").unwrap_or("https://eth.merkle.io".to_string());
-        let provider = ProviderBuilder::new().on_http(node_url.parse().unwrap());
+        let provider = ProviderBuilder::new().connect_http(node_url.parse().unwrap());
 
         let db_provider = AlloyRethProvider::new(provider, EthPrimitives::default());
         let provider_result = db_provider.block_hash(99999999);
@@ -77,7 +78,7 @@ mod tests {
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn test_canonical_hashes_range() {
         let node_url = env::var("MAINNET_HTTP").unwrap_or("https://eth.merkle.io".to_string());
-        let provider = ProviderBuilder::new().on_http(node_url.parse().unwrap());
+        let provider = ProviderBuilder::new().connect_http(node_url.parse().unwrap());
 
         let db_provider = AlloyRethProvider::new(provider, EthPrimitives::default());
         let block_hashes = db_provider.canonical_hashes_range(16148323, 16148324).unwrap();

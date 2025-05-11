@@ -3,10 +3,11 @@ use crate::AlloyNetwork;
 use alloy_provider::Provider;
 use reth_ethereum_primitives::EthPrimitives;
 use reth_provider::CanonStateNotificationSender;
+use std::fmt::Debug;
 use tokio::sync::broadcast;
 
 #[derive(Clone, Debug)]
-pub struct AlloyRethProvider<P: Send + Sync + Clone + 'static, NP: AlloyRethNodePrimitives> {
+pub struct AlloyRethProvider<P: Send + Sync + Debug + Clone + 'static, NP: AlloyRethNodePrimitives> {
     pub(crate) provider: P,
     pub canon_state_notification_sender: CanonStateNotificationSender<EthPrimitives>,
     _np: NP,
@@ -14,7 +15,7 @@ pub struct AlloyRethProvider<P: Send + Sync + Clone + 'static, NP: AlloyRethNode
 
 impl<P, NP> AlloyRethProvider<P, NP>
 where
-    P: Provider<AlloyNetwork> + Send + Sync + Clone + 'static,
+    P: Provider<AlloyNetwork> + Send + Sync + Debug + Clone + 'static,
     NP: AlloyRethNodePrimitives,
 {
     pub fn new(provider: P, _np: NP) -> Self {
@@ -52,14 +53,14 @@ mod tests {
     #[cfg(not(feature = "optimism"))]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn test_alloy_reth_provider_ethereum() {
-        let provider = ProviderBuilder::new().on_http("https://eth.merkle.io".parse().unwrap());
+        let provider = ProviderBuilder::new().connect_http("https://eth.merkle.io".parse().unwrap());
         test_trait(AlloyRethProvider::new(provider, EthPrimitives::default()));
     }
 
     #[cfg(feature = "optimism")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn test_alloy_reth_provider_any_network() {
-        let provider = ProviderBuilder::<_, _, Optimism>::default().on_http("https://base.merkle.io".parse().unwrap());
+        let provider = ProviderBuilder::<_, _, Optimism>::default().connect_http("https://base.merkle.io".parse().unwrap());
         test_trait(AlloyRethProvider::new(provider, OpPrimitives::default()));
     }
 }

@@ -9,12 +9,13 @@ use alloy_provider::Provider;
 use reth_errors::{ProviderError, ProviderResult};
 use reth_provider::errors::any::AnyError;
 use reth_provider::{BlockIdReader, BlockNumReader};
+use std::fmt::Debug;
 use std::future::IntoFuture;
 use tokio::runtime::Handle;
 
 impl<P, NP> BlockNumReader for AlloyRethProvider<P, NP>
 where
-    P: Provider<AlloyNetwork> + Send + Sync + Clone + 'static,
+    P: Provider<AlloyNetwork> + Send + Sync + Debug + Clone + 'static,
     NP: AlloyRethNodePrimitives,
 {
     fn chain_info(&self) -> ProviderResult<reth_chainspec::ChainInfo> {
@@ -54,7 +55,7 @@ where
 
 impl<P, NP> BlockIdReader for AlloyRethProvider<P, NP>
 where
-    P: Provider<AlloyNetwork> + Send + Sync + Clone + 'static,
+    P: Provider<AlloyNetwork> + Send + Sync + Debug + Clone + 'static,
     NP: AlloyRethNodePrimitives,
 {
     fn pending_block_num_hash(&self) -> ProviderResult<Option<alloy_eips::BlockNumHash>> {
@@ -96,7 +97,7 @@ mod tests {
     async fn test_chain_info() {
         let node_url = env::var("MAINNET_HTTP").unwrap_or("https://eth.merkle.io".to_string());
         let anvil = Anvil::new().fork(node_url).fork_block_number(16148323).spawn();
-        let provider = ProviderBuilder::new().on_http(anvil.endpoint_url());
+        let provider = ProviderBuilder::new().connect_http(anvil.endpoint_url());
 
         let db_provider = AlloyRethProvider::new(provider, EthPrimitives::default());
         let chain_info = db_provider.chain_info().unwrap();
@@ -108,7 +109,7 @@ mod tests {
     async fn test_best_block_number() {
         let node_url = env::var("MAINNET_HTTP").unwrap_or("https://eth.merkle.io".to_string());
         let anvil = Anvil::new().fork(node_url).fork_block_number(16148323).spawn();
-        let provider = ProviderBuilder::new().on_http(anvil.endpoint_url());
+        let provider = ProviderBuilder::new().connect_http(anvil.endpoint_url());
 
         let db_provider = AlloyRethProvider::new(provider, EthPrimitives::default());
         let block_number = db_provider.best_block_number().unwrap();
@@ -119,7 +120,7 @@ mod tests {
     async fn test_last_number() {
         let node_url = env::var("MAINNET_HTTP").unwrap_or("https://eth.merkle.io".to_string());
         let anvil = Anvil::new().fork(node_url).fork_block_number(16148323).spawn();
-        let provider = ProviderBuilder::new().on_http(anvil.endpoint_url());
+        let provider = ProviderBuilder::new().connect_http(anvil.endpoint_url());
 
         let db_provider = AlloyRethProvider::new(provider, EthPrimitives::default());
         let block_number = db_provider.last_block_number().unwrap();
@@ -129,7 +130,7 @@ mod tests {
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn test_block_number() {
         let node_url = env::var("MAINNET_HTTP").unwrap_or("https://eth.merkle.io".to_string());
-        let provider = ProviderBuilder::new().on_http(node_url.parse().unwrap());
+        let provider = ProviderBuilder::new().connect_http(node_url.parse().unwrap());
 
         let db_provider = AlloyRethProvider::new(provider, EthPrimitives::default());
         let block_number =
