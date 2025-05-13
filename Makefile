@@ -25,6 +25,7 @@ clean:
 .PHONY: fmt
 fmt:
 	cargo fmt
+	taplo format
 
 .PHONY: fmt-check
 fmt-check:
