@@ -542,6 +542,7 @@ dependencies = [
  "alloy-node-bindings",
  "alloy-primitives",
  "alloy-provider 1.0.1",
+ "alloy-rpc-types-eth 1.0.1",
  "alloy-transport 1.0.1",
  "eyre",
  "futures-util",

@@ -4,13 +4,12 @@ mod eth_imports {
     pub use alloy_eips::eip4844::env_settings::EnvKzgSettings;
     pub use alloy_eips::{Decodable2718, Encodable2718};
     pub use alloy_provider::{Provider, ProviderBuilder, WsConnect};
+    pub use alloy_reth_provider::utils::rpc_block_to_recovered_block;
     pub use alloy_reth_provider::AlloyRethProvider;
     pub use eyre::eyre;
     pub use futures_util::stream::StreamExt;
-    pub use reth_ethereum_primitives::{EthPrimitives, TransactionSigned};
-    pub use reth_primitives::{BlockBody, SealedBlock};
+    pub use reth_ethereum_primitives::EthPrimitives;
     pub use reth_primitives_traits::SignedTransaction;
-    pub use reth_primitives_traits::{RecoveredBlock, SealedHeader};
     pub use reth_provider::StateReader;
     pub use reth_provider::{BlockNumReader, BlockReader, CanonStateNotification, CanonStateSubscriptions, Chain};
     pub use reth_transaction_pool::blobstore::InMemoryBlobStore;
@@ -60,20 +59,9 @@ async fn main() -> eyre::Result<()> {
         let mut stream = block_subscription.into_stream().await.unwrap();
         while let Some(block_res) = stream.next().await {
             let block = block_res.unwrap();
-            let header = block.header.clone();
+            let recovered_block = rpc_block_to_recovered_block(block).unwrap();
 
-            // We need to convert an RPC block to a reth recovered block
-            let block = block.map_transactions(|tx| tx.into_inner().into());
-            let block_body = BlockBody::<TransactionSigned> {
-                transactions: block.transactions.into_transactions().collect(),
-                ommers: vec![],
-                withdrawals: block.withdrawals,
-            };
-            let sealed_header = SealedHeader::new(header.inner, block.header.hash);
-            let sealed_block = SealedBlock::from_sealed_parts(sealed_header, block_body);
-            let recovered_block = RecoveredBlock::try_recover_sealed(sealed_block).unwrap();
-
-            let execution_outcome = reth_provider_clone.get_state(block.header.number).unwrap().unwrap();
+            let execution_outcome = reth_provider_clone.get_state(recovered_block.number).unwrap().unwrap();
             let chain = Chain::new(vec![recovered_block], execution_outcome, None);
             let commit = CanonStateNotification::Commit { new: Arc::new(chain.clone()) };
             canon_state_notification_sender.send(commit).unwrap();

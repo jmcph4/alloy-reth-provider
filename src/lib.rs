@@ -5,6 +5,7 @@ pub mod alloy_db;
 pub mod primitives;
 mod provider;
 mod state_provider;
+pub mod utils;
 
 #[cfg(not(feature = "optimism"))]
 pub type AlloyNetwork = alloy_network::Ethereum;
