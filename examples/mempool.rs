@@ -25,6 +25,7 @@ mod eth_imports {
 
 #[cfg(not(feature = "optimism"))]
 use eth_imports::*;
+use reth_primitives_traits::SignedTransaction;
 
 #[cfg(feature = "optimism")]
 fn main() {
@@ -123,7 +124,7 @@ async fn main() -> eyre::Result<()> {
                             continue;
                         }
                     };
-                    let recovered = match tx.try_into_recovered() {
+                    let recovered = match tx.try_clone_into_recovered() {
                         Ok(recovered) => recovered,
                         Err(e) => {
                             tracing::error!("Error recovering tx: {:?}", e);
