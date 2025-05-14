@@ -9,6 +9,7 @@ mod eth_imports {
     pub use futures_util::stream::StreamExt;
     pub use reth_ethereum_primitives::{EthPrimitives, TransactionSigned};
     pub use reth_primitives::{BlockBody, SealedBlock};
+    pub use reth_primitives_traits::SignedTransaction;
     pub use reth_primitives_traits::{RecoveredBlock, SealedHeader};
     pub use reth_provider::StateReader;
     pub use reth_provider::{BlockNumReader, BlockReader, CanonStateNotification, CanonStateSubscriptions, Chain};
@@ -25,7 +26,6 @@ mod eth_imports {
 
 #[cfg(not(feature = "optimism"))]
 use eth_imports::*;
-use reth_primitives_traits::SignedTransaction;
 
 #[cfg(feature = "optimism")]
 fn main() {
