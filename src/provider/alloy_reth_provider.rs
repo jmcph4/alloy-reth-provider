@@ -8,7 +8,7 @@ use tokio::sync::broadcast;
 
 #[derive(Clone, Debug)]
 pub struct AlloyRethProvider<P: Send + Sync + Debug + Clone + 'static, NP: AlloyRethNodePrimitives> {
-    pub(crate) provider: P,
+    pub provider: P,
     pub canon_state_notification_sender: CanonStateNotificationSender<EthPrimitives>,
     _np: NP,
 }
